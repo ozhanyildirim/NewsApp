@@ -8,8 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
       <View style={ styles.container }>
         <Text>Details Screen</Text>
         <Button
-          title="Go to Details... again"
-          onPress={() => navigation.navigate('Details')}
+          title="Go Home"
+          onPress={() => navigation.navigate('Home')}
         />
       </View>
     );
