@@ -17,6 +17,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { color } from 'react-native-reanimated';
 
+
+
 export function DrawerContent(props) {
 
     const [isDarkTheme,setIsDarkTheme] = React.useState(false);
