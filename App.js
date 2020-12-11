@@ -8,6 +8,7 @@ import {DrawerContent} from './src/screens/DrawerContent';
 import MainTabScreen from './src/screens/MainTabScreen';
 import SupportScreen from './src/screens/SupportScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import RootStackScreen from './src/screens/RootStackScreen';
 
 const Drawer = createDrawerNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -20,11 +21,12 @@ function App() {
   return (
     
     <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <DrawerContent {... props}/>}>
+     <RootStackScreen/>
+     {/* <Drawer.Navigator drawerContent={props => <DrawerContent {... props}/>}>
         <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
         <Drawer.Screen name="SupportScreen" component={SupportScreen} />
         <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-      </Drawer.Navigator>
+  </Drawer.Navigator> */}
     </NavigationContainer>
   );
 }
