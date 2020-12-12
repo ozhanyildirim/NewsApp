@@ -1,27 +1,49 @@
 import React, { Component } from 'react';
-import { View, Text ,Button,StyleSheet} from 'react-native';
+import { View, Text ,StyleSheet, TextInput,Platform ,TouchableOpacity,Dimensions, Image} from 'react-native';
 
-const SignUpScreen = () => {
+const SignUpScreen = ({navigation}) => {
+
     return(
-         <View style={styles.container}> 
-            
-       
+      <View style={styles.container}>
+        <StatusBar backgroundColor='#009387' barStyle = "light-content"/>
         <View style={styles.header}>
-        <Text style={styles.text}>
-                        SIGN UP SCREEN
-             </Text>
-            
-        </View>
+          <Text style={styles.text_header}>Kayıt Ol !</Text>
+        </View >
         <View style={styles.footer}>
-        <Text style={styles.text_footer}>Footer Section...</Text>
-        </View>
-        
-         </View>
-         
-
-
-    )
-}
+          <Text style={styles.text_footer}>Email</Text>
+          <View style={styles.action}>
+            <TextInput placeholder="Email adresiniz"
+            style={styles.TextInput}
+            autoCapitalize="none"
+       
+            />
+      </View >
+              <Text style={[styles.text_footer ,{ marginTop : 35}]} >Şifre</Text>
+              <View style={styles.action}>
+            <TextInput placeholder="Şifrenizi Girin"
+            secureTextEntry={true}
+            style={styles.TextInput}
+            autoCapitalize="none"/>
+     </View>
+     </View >
+              <Text style={[styles.text_footer ,{ marginTop : 35}]} >Tekrar Şifre</Text>
+              <View style={styles.action}>
+            <TextInput placeholder="Şifrenizi Tekrar Girin"
+            secureTextEntry={true}
+            style={styles.TextInput}
+            autoCapitalize="none"/>
+     </View>
+       <View  style={styles.opacity}> 
+        <TouchableOpacity > 
+         <Image 
+           source={require('/app/app/assets/giris.png')} 
+           />
+           </TouchableOpacity>
+       </View>
+       </View>
+       </View>
+ );
+ };
 
 export default SignUpScreen;
 
