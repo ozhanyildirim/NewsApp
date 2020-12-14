@@ -10,48 +10,112 @@ import SupportScreen from './src/screens/SupportScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import RootStackScreen from './src/screens/RootStackScreen';
 import {AuthContext} from './components/context';
-
-import SplashScreen from './src/screens/SplashScreen';
-import SignInScreen from './src/screens/SignInScreen';
-import SignUpScreen from './src/screens/SignUpScreen';
-import DetailsScreen from './src/screens/DetailsScreen';
-import HomeScreen from './src/screens/HomeScreen';
 import { ActivityIndicator } from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Drawer = createDrawerNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const RootStack = createStackNavigator();
 
-<RootStackScreen/>
 const App= () => {
 
-  const [isLoading , setIsLoading] = React.useState(null);
-  const [userToken , setuserToken] = React.useState(null);
+ // const [isLoading , setIsLoading] = React.useState(null);
+ // const [userToken , setuserToken] = React.useState(null);
+
+ const initialLoginState = {
+   isLoading : true,
+   userName : null,
+   userToken : null,
+ };
+
+
+const loginReducer = (prevState , action) => {
+switch(action.type){
+  case 'RETRIEVE_TOKEN':
+    return{
+      ...prevState,
+      userToken : action.token,
+      isLoading : false,
+    };
+    case 'LOGIN':
+      return{
+        ...prevState,
+        userName : action.id,
+        userToken: action.token,
+        isLoading: false,     
+      };
+      case 'LOGOUT':
+        return{  
+          ...prevState,
+          userName : null,
+          userToken: null,
+          isLoading: false,};
+        case 'REGISTER':
+          return{
+            ...prevState,
+            userName : action.id,
+            userToken: null,
+            isLoading: action.token,
+          };
+}
+ };
+
+ const [loginState,dispatch] = React.useReducer(loginReducer , initialLoginState);
+
+
 
   const authContext = React.useMemo(() => ({
-    signIn: () => {
-      setuserToken('asdf');
-      setIsLoading(false);
+    signIn: async(userName,password) => {
+     // setuserToken('asdf');
+     // setIsLoading(false);
+      let userToken;
+      userName = null;
+
+      if(userName == 'user' && password == 'pass') {
+    
+        try {    
+          userToken = 'asd';
+          await AsyncStorage.setItem('userToken', userToken)
+        } catch (e) {
+          console.log(e);
+        }
+      
+      }
+      dispatch ({type : 'LOGIN' , id:userName,token:userToken});
     },
-    signOut:() => {
-      setuserToken(null);
-      setIsLoading(false);
+    signOut: async() => {
+      try {
+        await AsyncStorage.removeItem('userToken')
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch ({type : 'LOGOUT'});
     },
     signUp:() => {
-      setuserToken('asdf');
-      setIsLoading(false);
+     // setuserToken('asd');
+    //  setIsLoading(false);
     },
 
   }));
 
 React.useEffect(() => {
-  setTimeout(() => {
-    setIsLoading(false);
+  setTimeout(async() => {
+    let userToken;
+    userToken =null;
+
+    try {
+     userToken= await AsyncStorage.getItem('userToken')
+    } catch (e) {
+      console.log(e);
+    }
+    dispatch ({type : 'RETRIEVE_TOKEN' , token : userToken});
+
+  //  setIsLoading(false);
 
   },   1000); 
  }, []);
 
-if(isLoading){
+if(loginState.isLoading){
   return(
     <View style={{flex:1,justifyContent: 'center', alignItems: 'center'}}>
       <ActivityIndicator size="large"/>
@@ -59,20 +123,19 @@ if(isLoading){
   );
 }
   return (
+    
     <AuthContext.Provider value = {authContext}> 
     <NavigationContainer>
-      {userToken === null ? (
+      {loginState.userToken === null ? (
+ 
  <RootStackScreen/>
    
   ) 
 : 
 <Drawer.Navigator drawerContent={props => <DrawerContent {... props}/>}>
-     
 <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
 <Drawer.Screen name="SupportScreen" component={SupportScreen} />
 <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-
-
 </Drawer.Navigator>  
  
 }

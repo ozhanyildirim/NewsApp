@@ -10,8 +10,21 @@ import {AuthContext} from '/app/app/components/context';
 <HomeScreen/>
 
 const SignInScreen = ({navigation }) => {
+  const [data,setData] = React.useState({
+    username : '',
+    password : '',
+    check_textInputChange : false,
+    secureTextEntry : true
+  });
 
   const {signIn} = React.useContext(AuthContext);
+
+  const loginHandle = (username,password) => {
+    signIn(username,password);
+  }
+
+
+
 
   return(
     
@@ -37,7 +50,7 @@ const SignInScreen = ({navigation }) => {
           autoCapitalize="none"/>
    </View>
      <View style={styles.opacity}> 
-      <TouchableOpacity onPress={() => {signIn()}} > 
+      <TouchableOpacity onPress={() => {loginHandle(data.username,data.password)}} > 
        <Image 
          source={require('/app/app/assets/giris.png')} 
          />
