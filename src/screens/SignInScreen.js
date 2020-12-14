@@ -3,11 +3,15 @@ import { View, Text ,StyleSheet, TextInput,Platform ,TouchableOpacity,Dimensions
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
+import SettingsScreen from './SettingsScreen';
+import HomeScreen from './HomeScreen';
+import {AuthContext} from '/app/app/components/context';
 
+<HomeScreen/>
 
+const SignInScreen = ({navigation }) => {
 
-const SignInScreen = ({navigation}) => {
-
+  const {signIn} = React.useContext(AuthContext);
 
   return(
     
@@ -33,7 +37,7 @@ const SignInScreen = ({navigation}) => {
           autoCapitalize="none"/>
    </View>
      <View style={styles.opacity}> 
-      <TouchableOpacity > 
+      <TouchableOpacity onPress={() => {signIn()}} > 
        <Image 
          source={require('/app/app/assets/giris.png')} 
          />

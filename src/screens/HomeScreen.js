@@ -3,6 +3,7 @@ import { Button, View, Text ,StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 function HomeScreen({ navigation }) {
   return (
     <View style={ styles.container }>
@@ -16,6 +17,7 @@ function HomeScreen({ navigation }) {
 }
 
 export default HomeScreen;
+
 const styles = StyleSheet.create({
   container:{
     flex: 1, 
