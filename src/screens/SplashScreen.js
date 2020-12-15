@@ -4,13 +4,11 @@ import { TouchableRipple } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-
-
-
 const SplashScreen = ({navigation}) => {
     return(
          <View style={styles.container}>
              <View style={styles.header}> 
+             
                 <Image 
                 source={require('/app/app/assets/logo.png')}
                 style={styles.logo}
@@ -20,12 +18,10 @@ const SplashScreen = ({navigation}) => {
              <View style={styles.footer}>
                  <Text style={styles.title}>Lorem Ipsum dolor sit amet!</Text>
                  <Text style={styles.text}>Hesabınızla Giriş Yapın</Text>
-                 <View   style={styles.opacity}>
-                 <TouchableOpacity onPress={()=> navigation.navigate('SignInScreen')}> 
-                 <Image 
-                 source={require('/app/app/assets/uyg_giris.png')}
-               
-                 />
+                 <View >
+                 <TouchableOpacity style={styles.button2}
+                 onPress={()=> navigation.navigate('SignInScreen')}> 
+                 <Text style={styles.text1}> Uygulamaya Giriş </Text>
  
 
                  </TouchableOpacity>
@@ -97,7 +93,22 @@ const styles=StyleSheet.create({
         alignItems:'center',
       
         
-    }
+    },
+    button2 : {
+        marginTop : 30,
+        marginHorizontal : 36,
+        backgroundColor : '#8706a1',
+        borderRadius : 50,
+        height : 52,
+        alignItems : 'center',
+        justifyContent : 'center',
+      
+      },
+      text1: {
+        color : '#FFF',
+        fontWeight : "500" ,
+        fontSize: 20
+      },
 
 
 

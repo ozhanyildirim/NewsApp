@@ -1,7 +1,60 @@
 import React, { Component } from 'react';
 import { View, Text ,StyleSheet, StatusBar, TextInput,Platform ,TouchableOpacity,Dimensions, Image} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
 const SignUpScreen = ({navigation}) => {
+
+  const [data,setData] = React.useState({
+    email : '',
+    password : '',
+    confirm_password : '',
+    check_textInputChange : false,
+    secureTextEntry : true,
+    confirm_secureTextEntry : true,
+
+
+  });
+  const textInputChange = (val) => {
+    if( val.length !== 0 ) {
+        setData({
+            ...data,
+            email: val,
+            check_textInputChange: true,
+        });
+    } else {
+        setData({
+            ...data,
+            email: val,
+            check_textInputChange: false,
+        });
+    }
+}
+
+const handlePasswordChange = (val) => {
+  setData({
+    ...data,
+    password: val,
+  });
+}
+const handleConfirmPasswordChange = (val) => {
+  setData({
+    ...data,
+    confirm_password: val,
+  });
+}
+const updateSecureTextEntry = () => {
+  setData({
+    ...data,
+    secureTextEntry: !data.secureTextEntry,
+  });
+}
+const updateConfirmSecureTextEntry = () => {
+  setData({
+    ...data,
+    confirm_secureTextEntry: !data.confirm_secureTextEntry,
+  });
+}
 
     return(
       <View style={styles.container}>
@@ -14,30 +67,95 @@ const SignUpScreen = ({navigation}) => {
         <View style={styles.footer}>
           <Text style={styles.text_footer}>Email</Text>
           <View style={styles.action}>
-            <TextInput placeholder="Email adresiniz"
-            style={styles.TextInput}
-            autoCapitalize="none" />
+          <FontAwesome 
+          name="user-o"
+          color="#05375a"
+          size={20}
+          />
+          <TextInput placeholder="Email adresiniz"
+          style={[styles.textInput,{paddingLeft : 8}]}
+          autoCapitalize="none"
+          onChangeText={(val) => textInputChange(val)}
+          />
+          {data.check_textInputChange ? 
+          <Feather 
+          name="check-circle"
+          color="green"
+          size={20}
+          />
+          : null }
           </View >
           <Text style={[styles.text_footer ,{ marginTop : 35}]} >Şifre</Text>
             <View style={styles.action}>
+            <FontAwesome 
+          name="lock"
+          color="#05375a"
+          size={20}
+          />
             <TextInput placeholder="Şifrenizi Girin"
-            secureTextEntry={true}
-            style={styles.TextInput}
-            autoCapitalize="none"/>
+            secureTextEntry={data.secureTextEntry ? true : false}
+            style={[styles.textInput,{paddingLeft : 8}]}
+            autoCapitalize="none"
+            onChangeText={(val) => handlePasswordChange(val)}
+            />
+            <TouchableOpacity 
+            onPress = {updateSecureTextEntry}
+           
+            >
+              {data.secureTextEntry ? 
+                <Feather 
+                name="eye-off"
+                color="grey"
+                size={20}
+                />
+                :
+                <Feather 
+                name="eye"
+                color="grey"
+                size={20}
+                />
+            }
+             </TouchableOpacity>
      </View>
      
      <Text style={[styles.text_footer ,{ marginTop : 35}]} >Şifre Doğrula</Text>
               <View style={styles.action}>
+              <FontAwesome 
+          name="lock"
+          color="#05375a"
+          size={20}
+          />
             <TextInput placeholder="Şifrenizi Tekrar Girin"
-            secureTextEntry={true}
-            style={styles.TextInput}
-            autoCapitalize="none"/>
+            secureTextEntry={data.confirm_secureTextEntry ? true : false}
+            style={[styles.textInput,{paddingLeft : 8}]}
+            autoCapitalize="none"
+            onChangeText={(val) => handleConfirmPasswordChange(val)}
+            />
+            <TouchableOpacity 
+            onPress = {updateConfirmSecureTextEntry}
+           
+            >
+              {data.confirm_secureTextEntry ? 
+                <Feather 
+                name="eye-off"
+                color="grey"
+                size={20}
+                />
+                :
+                <Feather 
+                name="eye"
+                color="grey"
+                size={20}
+                />
+            }
+             </TouchableOpacity>
      </View >
-     <View  style={styles.opacity}> 
-        <TouchableOpacity onPress={() => navigation.goBack()}  > 
-         <Image 
-           source={require('/app/app/assets/kayit.png')} 
-           />
+     <View  > 
+        <TouchableOpacity
+        style={styles.button2}
+         onPress={() => navigation.goBack()}  > 
+                 <Text style={styles.text1}> Kayıt Ol </Text>
+
            </TouchableOpacity>
        </View>
      </View>
@@ -108,7 +226,22 @@ const styles=StyleSheet.create({
       borderBottomColor:'#f2f2f2',
       paddingBottom:5,
     },
-
+    button2 : {
+      marginTop : 30,
+      marginHorizontal : 36,
+      backgroundColor : 'pink',
+      borderRadius : 50,
+      height : 52,
+      alignItems : 'center',
+      justifyContent : 'center',
+    
+    },
+    text1: {
+      color : '#FFF',
+      fontWeight : "500" ,
+      fontSize: 20
+    },
+    
 
 
 
