@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text ,StyleSheet, StatusBar, TextInput,Platform ,TouchableOpacity,Dimensions, Image} from 'react-native';
+import { View, Text ,StyleSheet, StatusBar, TextInput,Platform ,TouchableOpacity,Dimensions, Image, KeyboardAvoidingView} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import { ScrollView } from 'react-native-gesture-handler';
+import {useTheme} from 'react-native-paper'
 
 const SignUpScreen = ({navigation}) => {
 
   const [data,setData] = React.useState({
-    email : '',
+    username : '',
     password : '',
     confirm_password : '',
     check_textInputChange : false,
@@ -15,17 +17,20 @@ const SignUpScreen = ({navigation}) => {
 
 
   });
+
+  const {colors} = useTheme();
+
   const textInputChange = (val) => {
     if( val.length !== 0 ) {
         setData({
             ...data,
-            email: val,
+            username: val,
             check_textInputChange: true,
         });
     } else {
         setData({
             ...data,
-            email: val,
+            username: val,
             check_textInputChange: false,
         });
     }
@@ -57,23 +62,26 @@ const updateConfirmSecureTextEntry = () => {
 }
 
     return(
+     
       <View style={styles.container}>
+      
         <StatusBar backgroundColor='#009387' barStyle = "light-content"/>
         <View style={styles.header}>
           <Text style={styles.text_header}>Kayıt Ol !</Text>
         </View >
-
-
-        <View style={styles.footer}>
-          <Text style={styles.text_footer}>Email</Text>
+        
+        <View style={[styles.footer , {backgroundColor : colors.background}]}>
+        <ScrollView>
+          <Text style={[styles.text_footer ,{color: colors.text}]}>Kullanıcı Adı</Text>
           <View style={styles.action}>
           <FontAwesome 
           name="user-o"
-          color="#05375a"
+          color={colors.text}
           size={20}
           />
-          <TextInput placeholder="Email adresiniz"
-          style={[styles.textInput,{paddingLeft : 8}]}
+          <TextInput placeholder="Kullanıcı Adınız"
+             placeholderTextColor="#666666"
+          style={[styles.textInput,{paddingLeft : 8},{color:colors.text}]}
           autoCapitalize="none"
           onChangeText={(val) => textInputChange(val)}
           />
@@ -85,16 +93,17 @@ const updateConfirmSecureTextEntry = () => {
           />
           : null }
           </View >
-          <Text style={[styles.text_footer ,{ marginTop : 35}]} >Şifre</Text>
+          <Text style={[styles.text_footer ,{ marginTop : 20}, {color: colors.text}]} >Şifre</Text>
             <View style={styles.action}>
             <FontAwesome 
           name="lock"
-          color="#05375a"
+          color={colors.text}
           size={20}
           />
             <TextInput placeholder="Şifrenizi Girin"
+                placeholderTextColor="#666666"
             secureTextEntry={data.secureTextEntry ? true : false}
-            style={[styles.textInput,{paddingLeft : 8}]}
+            style={[styles.textInput,{paddingLeft : 8},{color:colors.text}]}
             autoCapitalize="none"
             onChangeText={(val) => handlePasswordChange(val)}
             />
@@ -105,29 +114,29 @@ const updateConfirmSecureTextEntry = () => {
               {data.secureTextEntry ? 
                 <Feather 
                 name="eye-off"
-                color="grey"
+                color={colors.text}
                 size={20}
                 />
                 :
                 <Feather 
                 name="eye"
-                color="grey"
+                color={colors.text}
                 size={20}
                 />
             }
              </TouchableOpacity>
      </View>
      
-     <Text style={[styles.text_footer ,{ marginTop : 35}]} >Şifre Doğrula</Text>
+     <Text style={[styles.text_footer ,{ marginTop : 35},{color:colors.text}]} >Şifre Doğrula</Text>
               <View style={styles.action}>
               <FontAwesome 
           name="lock"
-          color="#05375a"
+          color={colors.text}
           size={20}
           />
             <TextInput placeholder="Şifrenizi Tekrar Girin"
             secureTextEntry={data.confirm_secureTextEntry ? true : false}
-            style={[styles.textInput,{paddingLeft : 8}]}
+            style={[styles.textInput,{paddingLeft : 8},{color:colors.text}]}
             autoCapitalize="none"
             onChangeText={(val) => handleConfirmPasswordChange(val)}
             />
@@ -138,13 +147,13 @@ const updateConfirmSecureTextEntry = () => {
               {data.confirm_secureTextEntry ? 
                 <Feather 
                 name="eye-off"
-                color="grey"
+                color={colors.text}
                 size={20}
                 />
                 :
                 <Feather 
                 name="eye"
-                color="grey"
+                color={colors.text}
                 size={20}
                 />
             }
@@ -158,10 +167,12 @@ const updateConfirmSecureTextEntry = () => {
 
            </TouchableOpacity>
        </View>
+    
+       </ScrollView>   
      </View>
-      
+    
        </View>
-      // </View>
+   
  );
  };
 

@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { Button, View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { 
+  NavigationContainer ,
+   DarkTheme as NavigationDarkTheme,
+   DefaultTheme as NavigationDefaultTheme,
+  } 
+  from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -12,15 +17,23 @@ import RootStackScreen from './src/screens/RootStackScreen';
 import {AuthContext} from './components/context';
 import { ActivityIndicator } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
+import Users from '../app/modal/user';
+import {
+  Provider as PaperProvider,
+   DarkTheme as PaperDarkTheme,
+   DefaultTheme as PaperDefaultTheme,
+  } from 'react-native-paper';
 
 const Drawer = createDrawerNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const RootStack = createStackNavigator();
 
+
 const App = () => {
 
  // const [isLoading , setIsLoading] = React.useState(null);
  // const [userToken , setuserToken] = React.useState(null);
+ const [isDarkTheme,setIsDarkTheme] = React.useState(false);
 
  const initialLoginState = {
    isLoading : true,
@@ -28,6 +41,30 @@ const App = () => {
    userToken : null,
  };
 
+ const CustomDefaultTheme = {
+   ...NavigationDefaultTheme,
+   ...PaperDefaultTheme,
+   colors : {
+     ...NavigationDefaultTheme.colors,
+     ...PaperDefaultTheme.colors,
+     background :'#ffffff',
+     text:'#333333',
+   }
+ }
+
+ const CustomDarkTheme = {
+   ...NavigationDarkTheme,
+   ...PaperDarkTheme,
+   colors: {
+     ...NavigationDarkTheme.colors,
+     ...PaperDarkTheme.colors,
+     background : '#333333',
+     text : '#ffffff'
+
+
+   }
+ }
+ const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
 const loginReducer = (prevState , action) => {
 switch(action.type){
@@ -66,31 +103,33 @@ switch(action.type){
 
 
   const authContext = React.useMemo(() => ({
-    signIn: async(userName,password) => {
+    signIn: async(foundUser) => {
     // setuserToken('asdf');
     //  setIsLoading(false);
       let userToken;
-      userToken = null;
+      userToken = String(foundUser[0].userToken);
+      userName =foundUser[0].username;
+
 
       if(userName == 'user' && password == 'pass') 
       {
 
         try {    
-          userToken = 'asfd';
+          //userToken = 'asfd';
           await AsyncStorage.setItem('userToken', userToken);
         } catch (e) {
-          console.log(e);
+        //  console.log(e);
         }
       
       }
-      console.log('user token :' , userToken);
+    //  console.log('user token :' , userToken);
       dispatch ({type : 'LOGIN' , id: userName  , token : userToken});
     },
     signOut: async() => {
       try {
         await AsyncStorage.removeItem('userToken');
       } catch (e) {
-        console.log(e);
+       // console.log(e);
       }
       dispatch ({type : 'LOGOUT'});
     },
@@ -98,21 +137,24 @@ switch(action.type){
     // setuserToken('asd');
     //  setIsLoading(false);
     },
-
+    toggleTheme : () => {
+      setIsDarkTheme(isDarkTheme => !isDarkTheme);
+    }
   }));
+ 
 
 useEffect(() => {
   setTimeout(async() => {
    // userToken = "asd"
     
     let userToken;
-    userToken ="asd";
-    console.log('user token :' , userToken);
+   // userToken ="asd";
+    //console.log('user token :' , userToken);
     try {
 
      userToken = await AsyncStorage.getItem('userToken');
     } catch (e) {
-      console.log(e);
+    //  console.log(e);
     }
     dispatch ({type : 'RETRIEVE_TOKEN' , token : userToken});
 
@@ -127,8 +169,9 @@ if(loginState.isLoading){
   );
 }
   return (
+    <PaperProvider theme={theme}> 
     <AuthContext.Provider value={authContext}>
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       { loginState.userToken !== null ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
@@ -141,6 +184,7 @@ if(loginState.isLoading){
     }
     </NavigationContainer>
     </AuthContext.Provider>
+    </PaperProvider>
   );
 
 }

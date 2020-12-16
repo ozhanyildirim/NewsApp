@@ -1,3 +1,4 @@
+import { useTheme } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { View, Text ,Button,StyleSheet, Dimensions ,Image,TouchableOpacity, } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
@@ -5,6 +6,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 const SplashScreen = ({navigation}) => {
+    const {colors} = useTheme();
     return(
          <View style={styles.container}>
              <View style={styles.header}> 
@@ -15,9 +17,10 @@ const SplashScreen = ({navigation}) => {
                 resizeMode="stretch"
                 />
              </View>
-             <View style={styles.footer}>
-                 <Text style={styles.title}>Lorem Ipsum dolor sit amet!</Text>
-                 <Text style={styles.text}>Hesabınızla Giriş Yapın</Text>
+             <View style={[styles.footer , {backgroundColor :colors.background}]}>
+                 <Text style={[styles.title,
+                    { color:colors.text}]}>Lorem Ipsum dolor sit amet!</Text>
+                 <Text style={styles.text  }>Hesabınızla Giriş Yapın</Text>
                  <View >
                  <TouchableOpacity style={styles.button2}
                  onPress={()=> navigation.navigate('SignInScreen')}> 

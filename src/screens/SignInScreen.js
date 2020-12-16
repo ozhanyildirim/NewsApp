@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text ,StyleSheet, TextInput,Platform ,TouchableOpacity,Dimensions, Image} from 'react-native';
+import { View, Text ,StyleSheet, TextInput,Platform ,TouchableOpacity,Dimensions, Image, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
@@ -8,36 +8,72 @@ import HomeScreen from './HomeScreen';
 import {AuthContext} from '/app/app/components/context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import Users from '/app/app/modal/user';
+import {useTheme} from 'react-native-paper'
 
 const SignInScreen = ({navigation }) => {
 
   const [data,setData] = React.useState({
-    email : '',
+    username : '',
     password : '',
     check_textInputChange : false,
-    secureTextEntry : true
+    secureTextEntry : true,
+    isValidUser : true,
+    isValidPassword : true,
   });
+
+  const {colors} = useTheme();
+
+
+
   const textInputChange = (val) => {
-    if( val.length !== 0 ) {
+    if( val.trim().length >= 4 ) {
         setData({
             ...data,
-            email: val,
+            username: val,
             check_textInputChange: true,
+            isValidUser : true,
         });
     } else {
         setData({
             ...data,
-            email: val,
+            username: val,
             check_textInputChange: false,
+            isValidUser : false,
         });
     }
 }
+const handleValidUser = (val) => {
+  if(val.trim().length >= 4) {
+    setData ({
+      ...data,
+      isValidUser : true
+    });
+   } 
+   else {
+      setData ({
+        ...data,
+        isValidUser : false
+      });
+    
+  }
 
+}
 const handlePasswordChange = (val) => {
+  if(val.trim().length >= 8) {
   setData({
     ...data,
     password: val,
-  });
+    isValidPassword :true,
+  });}
+  else {
+    setData ({
+      ...data,
+      password : val,
+      isValidPassword : false,
+    });
+  
+}
 }
 const updateSecureTextEntry = () => {
   setData({
@@ -48,8 +84,24 @@ const updateSecureTextEntry = () => {
 
   const {signIn} = React.useContext(AuthContext);
 
-  const loginHandle = (email,password) => {
-    signIn(email,password);
+  const loginHandle = (userName,password) => {
+    const foundUser = Users.filter (item => {
+      return userName == item.username && password == item.password;
+    });
+     
+    if(data.username.length == 0 ||data.password.length ==0){
+      Alert.alert('Hatalı Giriş !' , 'Kullanıcı adı veya şifre boş bırakılamaz.',[
+        {text : 'Tamam'}
+      ]);
+      return;
+    }
+    if(foundUser.length == 0){
+      Alert.alert('Hatalı Giriş !' , 'Kullanıcı adı veya şifre yanlış.',[
+        {text : 'Tamam'}
+      ]);
+      return;
+    }
+    signIn(foundUser);
   }
 
   return(
@@ -62,18 +114,20 @@ const updateSecureTextEntry = () => {
 
 
 
-      <View style={styles.footer}>
-        <Text style={styles.text_footer}>Email</Text>
+      <View style={[styles.footer , {backgroundColor : colors.background}]}>
+        <Text style={[styles.text_footer,{color: colors.text}]}>Kullanıcı Adı</Text>
         <View style={styles.action}>
           <FontAwesome 
           name="user-o"
-          color="#05375a"
+          color={colors.text}
           size={20}
           />
-          <TextInput placeholder="Email adresiniz"
-          style={[styles.textInput,{paddingLeft : 8}]}
+          <TextInput placeholder="Kullanıcı adınız"
+              placeholderTextColor="#666666"
+          style={[styles.textInput,{paddingLeft : 8},{color:colors.text}]}
           autoCapitalize="none"
           onChangeText={(val) => textInputChange(val)}
+          onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
           />
           {data.check_textInputChange ? 
           <Feather 
@@ -83,17 +137,23 @@ const updateSecureTextEntry = () => {
           />
           : null }
     </View >
-            <Text style={[styles.text_footer ,{ marginTop : 35}]} >Şifre</Text>
+    { data.isValidUser ? null : 
+
+    <Text style={styles.errorMsg}>Kullanıcı adı 4 karakterden uzun olmalı. </Text> 
+    }
+            <Text style={[styles.text_footer ,{ marginTop : 35} , {color: colors.text}]} >Şifre</Text>
             <View style={styles.action}>
             <FontAwesome 
           name="lock"
-          color="#05375a"
+          color={colors.text}
           size={20}
           />
           <TextInput placeholder="Şifrenizi Girin"
+            placeholderTextColor="#666666"
+
 
           secureTextEntry={data.secureTextEntry ? true : false}
-          style={[styles.textInput,{paddingLeft : 8}]}
+          style={[styles.textInput,{paddingLeft : 8},{color:colors.text}]}
           autoCapitalize="none"
           onChangeText={(val) => handlePasswordChange(val)}
           />
@@ -104,29 +164,53 @@ const updateSecureTextEntry = () => {
             {data.secureTextEntry ? 
               <Feather 
               name="eye-off"
-              color="grey"
+              color={colors.text}
               size={20}
               />
               :
               <Feather 
               name="eye"
-              color="grey"
+              color={colors.text}
               size={20}
               />
           }
           
            </TouchableOpacity>
    </View>
-     <View> 
+   {data.isValidPassword ? null :
+   <Text style={styles.errorMsg}>Parola 8 karakterden uzun olmalı. </Text>
+   }
+    <View> 
       <TouchableOpacity style={styles.button2}
-      onPress={() => {loginHandle(data.email,data.password)}} > 
+      onPress={() => {loginHandle(data.username,data.password)}} > 
         <Text style={styles.text1}> Giriş Yap </Text>
          </TouchableOpacity>
      </View>
   
+ { /*   {Platform.OS === 'android' ? (
+        <View>
+          <SocialButton
+            buttonTitle="Sign In with Facebook"
+            btnType="facebook"
+            color="#4867aa"
+            backgroundColor="#e6eaf4"
+            onPress={() => fbLogin()}
+          />
+
+          <SocialButton
+            buttonTitle="Sign In with Google"
+            btnType="google"
+            color="#de4d41"
+            backgroundColor="#f5e7ea"
+            onPress={() => googleLogin()}
+          />
+        </View>
+      ) : null}
+
+ */}
 
 <View style={[styles.button1,{paddingTop:7}]}>
-<Text style={[styles.text_footer , {paddingTop :10}]}> Hesabınız yok mu ? </Text> 
+<Text style={[styles.text_footer , {paddingTop :10},{color: colors.text}] }> Hesabınız yok mu ? </Text> 
 </View>
 <View > 
       <TouchableOpacity style={styles.button2}
@@ -229,7 +313,11 @@ button2 : {
   alignItems : 'center',
   justifyContent : 'center',
 
-}
+},
+errorMsg: {
+  color: '#FF0000',
+  fontSize: 14,
+},
 
 
 

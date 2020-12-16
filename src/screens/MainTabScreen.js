@@ -77,7 +77,7 @@ const HomeStackScreen = ({navigation}) => (
          color:'white'
        }
      
-   }} initialRouteName="none" >
+   }}  >
      <HomeStack.Screen name="Home" component={HomeScreen} 
      options={{
       title:'Home',
@@ -115,3 +115,31 @@ const HomeStackScreen = ({navigation}) => (
     
    </DetailsStack.Navigator>
   );
+
+const ExploreStackScreen = ({navigation}) => (
+
+  <ExploreStack.Navigator screenOptions={{
+    headerStyle : { 
+       backgroundColor : '#8706a1'
+     },
+     headerTintColor : '#8706a1',
+     headerTitleStyle:{
+       fontWeight:'bold',
+       color:'white'
+     }
+   
+ }}  >
+   <ExploreStack.Screen name="Explore" component={ExploreScreen} 
+   options={{
+    title:'Home',
+    headerLeft: () => (
+      <Icon.Button name="ios-menu" size={24}
+       backgroundColor="#8706a1"
+       onPress= {() => navigation.openDrawer()}> 
+       </Icon.Button>
+       )}}
+       />
+  
+ </ExploreStack.Navigator>
+);
+ 
