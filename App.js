@@ -172,7 +172,12 @@ if(loginState.isLoading){
     <PaperProvider theme={theme}> 
     <AuthContext.Provider value={authContext}>
     <NavigationContainer theme={theme}>
-      { loginState.userToken !== null ? (
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+          <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
+          <Drawer.Screen name="SupportScreen" component={SupportScreen} />
+          <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
+        </Drawer.Navigator>
+      {/* loginState.userToken !== null ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
           <Drawer.Screen name="SupportScreen" component={SupportScreen} />
@@ -181,7 +186,7 @@ if(loginState.isLoading){
       )
     :
       <RootStackScreen/>
-    }
+      */ }
     </NavigationContainer>
     </AuthContext.Provider>
     </PaperProvider>
