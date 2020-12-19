@@ -11,8 +11,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {DrawerContent} from './src/screens/DrawerContent';
 import MainTabScreen from './src/screens/MainTabScreen';
-import SupportScreen from './src/screens/SupportScreen';
-import SettingsScreen from './src/screens/SettingsScreen';
+import EconomyScreen from './src/screens/EconomyScreen';
+import InformationScreen from './src/screens/InformationScreen';
+import AllnewsScreen from './src/screens/AllnewsScreen';
+import NotificationsScreen from './src/screens/NotificationsScreen';
+
 import RootStackScreen from './src/screens/RootStackScreen';
 import {AuthContext} from './components/context';
 import { ActivityIndicator } from 'react-native-paper';
@@ -27,6 +30,8 @@ import {
 const Drawer = createDrawerNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const RootStack = createStackNavigator();
+console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed', 'Warning: Virtual', 'Warning : Can'];
+console.disableYellowBox = true;
 
 
 const App = () => {
@@ -172,21 +177,29 @@ if(loginState.isLoading){
     <PaperProvider theme={theme}> 
     <AuthContext.Provider value={authContext}>
     <NavigationContainer theme={theme}>
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+   {  <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
-          <Drawer.Screen name="SupportScreen" component={SupportScreen} />
-          <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-        </Drawer.Navigator>
-      {/* loginState.userToken !== null ? (
+          <Drawer.Screen name="EconomyScreen" component={EconomyScreen} />
+          <Drawer.Screen name="InformationScreen" component={InformationScreen} />
+          <Drawer.Screen name="AllnewsScreen" component={AllnewsScreen} />
+          <Drawer.Screen name="NotificationsScreen" component={NotificationsScreen} />
+
+
+  </Drawer.Navigator> }
+     {/* loginState.userToken !== null ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-          <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
-          <Drawer.Screen name="SupportScreen" component={SupportScreen} />
-          <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
+               <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
+            <Drawer.Screen name="EconomyScreen" component={EconomyScreen} />
+          <Drawer.Screen name="InformationScreen" component={InformationScreen} />
+          <Drawer.Screen name="AllnewsScreen" component={AllnewsScreen} />
+      
+       
+
         </Drawer.Navigator>
-      )
+     )
     :
-      <RootStackScreen/>
-      */ }
+     <RootStackScreen/>
+       */}
     </NavigationContainer>
     </AuthContext.Provider>
     </PaperProvider>

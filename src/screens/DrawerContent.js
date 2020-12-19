@@ -18,16 +18,12 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { color } from 'react-native-reanimated';
 import {AuthContext} from '../../components/context';
-
-
+import NotificationsScreen from '../screens/NotificationsScreen';
 export function DrawerContent(props) {
 
     const paperTheme = useTheme();
 
     const {signOut , toggleTheme}= React.useContext(AuthContext);
-
-   
-
     return(
 
 <View style= {{flex : 1 }}>
@@ -35,29 +31,27 @@ export function DrawerContent(props) {
     <View style={styles.drawerContent}>
         <View style={{flexDirection : 'row', marginTop:15 , marginLeft : 6}}> 
        <Avatar.Image 
-            source = {{
-                uri:'https://pbs.twimg.com/profile_images/1327176900280803329/pJ6Y7Vhq_400x400.jpg'
-            }}
+              source={require('/app/app/assets/pp.png')}
             size={50}
             
             />
             
             <View style={{marginLeft :15, flexDirection:'column'}}>
-            <Title>Özhan Nuri Yıldırım</Title>
-                <Caption style={styles.caption}>@ozhanyildirim
+            <Title>Kullanıcı </Title>
+                <Caption style={styles.caption}>@kullanici
                 </Caption>
                 </View>
                 </View>
 <View style={styles.row}>
     <View style={styles.section}> 
     <View style={{marginLeft : 10}}> 
-    <Paragraph style={[styles.paragraph,styles.caption]}>30</Paragraph>
+    <Paragraph style={[styles.paragraph,styles.caption]}>0</Paragraph>
     </View>
     <Caption style={styles.caption}>Following</Caption>
     </View>
    
     <View style={styles.section}> 
-    <Paragraph style={[styles.paragraph,styles.caption]}>1850</Paragraph>
+    <Paragraph style={[styles.paragraph,styles.caption]}>0</Paragraph>
     <Caption style={styles.caption}>Followers</Caption>
     </View>
     
@@ -71,65 +65,53 @@ export function DrawerContent(props) {
         size={size}
         />
     )}
-    label ="Home"
+    label ="Ana Sayfa"
     onPress={() => {props.navigation.navigate('Home')}}
     
     />
     <DrawerItem 
     icon={({color,size}) => (
         <Icon
-        name = "account-outline"
+        name = "newspaper"
         color={color}
         size={size}
         />
     )}
-    label ="Profile"
-    onPress={() => {props.navigation.navigate('Profile')}}
+    label ="Tüm Haberler"
+    onPress={() => {props.navigation.navigate('AllnewsScreen')}}
     
     
     />
      <DrawerItem 
     icon={({color,size}) => (
         <Icon
-        name = "bookmark-outline"
+        name = "bell-ring-outline"
         color={color}
         size={size}
         />
     )}
-    label ="Bookmarks"
-    onPress={() => {props.navigation.navigate('Details')}}
+    label ="Bildirimler"
+    onPress={() => {props.navigation.navigate('NotificationsScreen')}}
     
     
     />
     <DrawerItem 
     icon={({color,size}) => (
         <Icon
-        name = "settings-outline"
+        name = "information-outline"
         color={color}
         size={size}
         />
     )}
-    label ="Explore"
-    onPress={() => {props.navigation.navigate('Explore')}}
-    
-    
-    />
-    <DrawerItem 
-    icon={({color,size}) => (
-        <Icon
-        name = "account-check-outline"
-        color={color}
-        size={size}
-        />
-    )}
-    label ="Support"
-    onPress={() => {props.navigation.navigate('SupportScreen')}}
-    
+    label ="Hakkında"
+    onPress={() => {props.navigation.navigate('InformationScreen')}}
     
     />
+  
+   
 </Drawer.Section>
 
-<Drawer.Section title="Preferences">
+<Drawer.Section title="Tercihler">
     <TouchableRipple onPress={()=> {toggleTheme()}}>
         <View style={styles.preference}>
             <Text>
@@ -143,7 +125,12 @@ export function DrawerContent(props) {
     </TouchableRipple>
 
 </Drawer.Section>
-
+<Text style={{marginLeft : 5 , paddingTop : 10}}>
+      ÖZHAN NURİ YILDIRIM
+     </Text>
+     <Text style={{marginLeft : 5 , paddingTop : 5}}>
+      © 2020
+     </Text>
     </View>
 </DrawerContentScrollView>
 <Drawer.Section style={StyleSheet.bottomDrawerSection}>

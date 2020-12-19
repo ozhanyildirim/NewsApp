@@ -12,7 +12,7 @@ const SplashScreen = ({navigation}) => {
              <View style={styles.header}> 
              
                 <Image 
-                source={require('/app/app/assets/logo.png')}
+                source={require('/app/app/assets/osinews.png')}
                 style={styles.logo}
                 resizeMode="stretch"
                 />

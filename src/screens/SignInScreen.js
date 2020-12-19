@@ -3,7 +3,7 @@ import { View, Text ,StyleSheet, TextInput,Platform ,TouchableOpacity,Dimensions
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
-import SettingsScreen from './SettingsScreen';
+import SettingsScreen from './InformationScreen';
 import HomeScreen from './HomeScreen';
 import {AuthContext} from '/app/app/components/context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
