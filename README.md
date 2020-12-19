@@ -1,6 +1,6 @@
 # MOBİL UYGULAMA
 Haber uygulaması
-![OSI NEWS](https://hizliresim.com/keVlsw)
+![OSI NEWS](https://i.hizliresim.com/keVlsw.png)
 
 
 
