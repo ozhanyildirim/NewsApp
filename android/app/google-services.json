@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "66439311940",
+    "project_id": "osi-app",
+    "storage_bucket": "osi-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66439311940:android:bf6f762ae1ec58b316c211",
+        "android_client_info": {
+          "package_name": "com.osinews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "66439311940-u65sf41disor8dfh5brhohcbk02gmakc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.osinews",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "66439311940-mvotubmrag59iu2498ug9sfl1e7gm1m7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtB1gz5WHRDbETM5ycJAlGc5cxsNswWdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66439311940-mvotubmrag59iu2498ug9sfl1e7gm1m7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "66439311940-atmlrefgjnj06m8c5tf0dofmjqjtpmta.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.osinews"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

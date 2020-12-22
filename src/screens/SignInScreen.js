@@ -186,28 +186,8 @@ const updateSecureTextEntry = () => {
         <Text style={styles.text1}> Giriş Yap </Text>
          </TouchableOpacity>
      </View>
-  
- { /*   {Platform.OS === 'android' ? (
-        <View>
-          <SocialButton
-            buttonTitle="Sign In with Facebook"
-            btnType="facebook"
-            color="#4867aa"
-            backgroundColor="#e6eaf4"
-            onPress={() => fbLogin()}
-          />
+    
 
-          <SocialButton
-            buttonTitle="Sign In with Google"
-            btnType="google"
-            color="#de4d41"
-            backgroundColor="#f5e7ea"
-            onPress={() => googleLogin()}
-          />
-        </View>
-      ) : null}
-
- */}
 
 <View style={[styles.button1,{paddingTop:7}]}>
 <Text style={[styles.text_footer , {paddingTop :10},{color: colors.text}] }> Hesabınız yok mu ? </Text> 
@@ -218,6 +198,8 @@ const updateSecureTextEntry = () => {
         <Text style={styles.text1}> Kayıt Ol </Text>
          </TouchableOpacity>
      </View>
+    
+
       </View >
 
     </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text ,StyleSheet, StatusBar, TextInput,Platform ,TouchableOpacity,Dimensions, Image, KeyboardAvoidingView} from 'react-native';
+import { View, Text ,StyleSheet, StatusBar, TextInput,Platform ,TouchableOpacity,Dimensions, Image, KeyboardAvoidingView, Alert} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -17,6 +17,7 @@ const SignUpScreen = ({navigation}) => {
 
 
   });
+
 
   const {colors} = useTheme();
 
@@ -135,10 +136,12 @@ const updateConfirmSecureTextEntry = () => {
           size={20}
           />
             <TextInput placeholder="Şifrenizi Tekrar Girin"
+                     placeholderTextColor="#666666"
             secureTextEntry={data.confirm_secureTextEntry ? true : false}
             style={[styles.textInput,{paddingLeft : 8},{color:colors.text}]}
             autoCapitalize="none"
             onChangeText={(val) => handleConfirmPasswordChange(val)}
+            
             />
             <TouchableOpacity 
             onPress = {updateConfirmSecureTextEntry}
@@ -159,10 +162,14 @@ const updateConfirmSecureTextEntry = () => {
             }
              </TouchableOpacity>
      </View >
-     <View  > 
+     <View  >  
         <TouchableOpacity
         style={styles.button2}
-         onPress={() => navigation.goBack()}  > 
+         onPress={() => {navigation.goBack() , Alert.alert('BAŞARILI' , 'Kayıt işlemi başarıyla tamamlandı.',[
+          {text : 'Tamam'}
+        ])} }  
+        
+         > 
                  <Text style={styles.text1}> Kayıt Ol </Text>
 
            </TouchableOpacity>
@@ -182,7 +189,7 @@ const styles=StyleSheet.create({
 
     container:{
         flex:1,
-        backgroundColor:'pink',
+        backgroundColor:'#ff5c6f',
 
     },
     text : {
@@ -200,7 +207,7 @@ const styles=StyleSheet.create({
         justifyContent :'flex-end',
         paddingHorizontal:20,
         paddingBottom:50,
-        backgroundColor:'pink'
+        backgroundColor:'#ff5c6f'
     },
     footer: {
         flex :2 ,
@@ -240,7 +247,7 @@ const styles=StyleSheet.create({
     button2 : {
       marginTop : 30,
       marginHorizontal : 36,
-      backgroundColor : 'pink',
+      backgroundColor : '#ff5c6f',
       borderRadius : 50,
       height : 52,
       alignItems : 'center',

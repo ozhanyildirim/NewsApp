@@ -2,11 +2,9 @@ import React, { useCallback } from "react";
 import { View, Text , Image , StyleSheet , Header , Button, Linking} from 'react-native';
 import {useTheme} from '@react-navigation/native'
 import { Appbar } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const mailURL = "mailto:ozhannuri@gmail.com";
 const instaURL = "https://www.instagram.com/yildirimozhan";
-
 const twitterURL = "https://twitter.com/osiriks";
 
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Header, Content, List, ListItem, Thumbnail, Left, Body, Right, Button } from 'native-base';
 import getArticles from '../service/news';
-import {Alert , View , Text, ActivityIndicator} from 'react-native';
+import {Alert , View , Text, ActivityIndicator ,StyleSheet} from 'react-native';
 import DataItem from '../../components/dataItem';
 import Modal from '../../components/modal';
 console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed', 'Warning: VirtualizedLists'];
+import { Appbar } from 'react-native-paper';
 
 
 export default class AllnewsScreen extends React.Component {
@@ -114,6 +115,11 @@ export default class AllnewsScreen extends React.Component {
 
     return (
       <Container>
+        <Appbar.Header style={styles.Header}>
+   
+      <Appbar.Content title="Genel Haberler" subtitle="OsiNews"  />
+    
+    </Appbar.Header>  
         <Content>
         
          {view}
@@ -129,3 +135,18 @@ export default class AllnewsScreen extends React.Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  container:{
+   
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Header :{
+    backgroundColor :'#ffaeb9',
+    alignItems: 'center',
+   
+    
+  },
+
+
+});

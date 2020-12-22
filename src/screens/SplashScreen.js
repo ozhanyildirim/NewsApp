@@ -19,8 +19,9 @@ const SplashScreen = ({navigation}) => {
              </View>
              <View style={[styles.footer , {backgroundColor :colors.background}]}>
                  <Text style={[styles.title,
-                    { color:colors.text}]}>Lorem Ipsum dolor sit amet!</Text>
+                    { color:colors.text}]}>Haberin ilk Adresi!</Text>
                  <Text style={styles.text  }>Hesabınızla Giriş Yapın</Text>
+                 
                  <View >
                  <TouchableOpacity style={styles.button2}
                  onPress={()=> navigation.navigate('SignInScreen')}> 
@@ -29,7 +30,10 @@ const SplashScreen = ({navigation}) => {
 
                  </TouchableOpacity>
                  </View>
+                 <Text style={{color:'red' , marginTop : 15}}>Eğer girişte hata alırsanız kullanıcı adı ve şifreyi 'a' olarak giriniz</Text>
+
              </View>
+             
          </View>
 
 

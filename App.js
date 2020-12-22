@@ -71,7 +71,7 @@ const App = () => {
  }
  const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
-const loginReducer = (prevState , action) => {
+ const loginReducer = (prevState , action) => {
 switch(action.type){
   case 'RETRIEVE_TOKEN':
     return{
@@ -164,7 +164,10 @@ useEffect(() => {
     dispatch ({type : 'RETRIEVE_TOKEN' , token : userToken});
 
   },   1000); 
- }, []);
+ 
+ },
+  
+ []);
 
 if(loginState.isLoading){
   return(
@@ -177,7 +180,7 @@ if(loginState.isLoading){
     <PaperProvider theme={theme}> 
     <AuthContext.Provider value={authContext}>
     <NavigationContainer theme={theme}>
-   {  <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+   { /* <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
           <Drawer.Screen name="EconomyScreen" component={EconomyScreen} />
           <Drawer.Screen name="InformationScreen" component={InformationScreen} />
@@ -185,21 +188,19 @@ if(loginState.isLoading){
           <Drawer.Screen name="NotificationsScreen" component={NotificationsScreen} />
 
 
-  </Drawer.Navigator> }
-     {/* loginState.userToken !== null ? (
+  </Drawer.Navigator> */}
+     { loginState.userToken !== null ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
                <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
             <Drawer.Screen name="EconomyScreen" component={EconomyScreen} />
           <Drawer.Screen name="InformationScreen" component={InformationScreen} />
           <Drawer.Screen name="AllnewsScreen" component={AllnewsScreen} />
-      
-       
-
+          <Drawer.Screen name="NotificationsScreen" component={NotificationsScreen} />
         </Drawer.Navigator>
      )
     :
      <RootStackScreen/>
-       */}
+     }
     </NavigationContainer>
     </AuthContext.Provider>
     </PaperProvider>
